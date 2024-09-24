@@ -1,0 +1,124 @@
+.calculadora {
+  width: 300px;
+  margin: 0 auto;
+  background-color: #2c3e50;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: width 0.3s ease;
+}
+
+.calculadora.cientifica {
+  width: 400px;
+}
+
+.historico {
+  background-color: #34495e;
+  color: #ecf0f1;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  max-height: 100px;
+  overflow-y: auto;
+  font-family: monospace;
+}
+
+.calculo-historico {
+  margin-bottom: 5px;
+}
+
+.equacao-historico {
+  display: inline-block;
+}
+
+.display {
+  background-color: #34495e;
+  border: 1px solid #2c3e50;
+  border-radius: 5px;
+  padding: 15px;
+  font-size: 24px;
+  text-align: right;
+  margin-bottom: 15px;
+  color: #ecf0f1;
+}
+
+.teclado {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.calculadora.cientifica .teclado {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+button {
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  background-color: #34495e;
+  color: #ecf0f1;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background-color: #2c3e50;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+/* Botões de controle */
+.modo-cientifico,
+.alternar-unidade,
+.limpar,
+.apagar {
+  background-color: #ff6b6b;
+  color: #fff;
+}
+
+.modo-cientifico:hover,
+.alternar-unidade:hover,
+.limpar:hover,
+.apagar:hover {
+  background-color: #ff5252;
+}
+
+/* Botões de funções */
+.funcao {
+  background-color: #f39c12 !important;
+}
+
+.funcao:hover {
+  background-color: #d35400 !important;
+}
+
+/* Botões científicos */
+.calculadora.cientifica button[onClick^="() => executarOperacaoCientifica"] {
+  background-color: #f39c12;
+}
+
+.calculadora.cientifica button[onClick^="() => executarOperacaoCientifica"]:hover {
+  background-color: #d35400;
+}
+
+.modo-cientifico {
+  grid-column: span 4;
+}
+
+.calculadora.cientifica .modo-cientifico,
+.calculadora.cientifica .alternar-unidade {
+  grid-column: span 2;
+}
+
+.limpar, .apagar {
+  grid-column: span 2;
+  background-color: #e74c3c;
+}
+
+.limpar:hover, .apagar:hover {
+  background-color: #c0392b;
+}
