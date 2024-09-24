@@ -196,7 +196,7 @@ function Calculadora() {
           ))}
         </ul>
         {/* Adicione este botão para limpar o histórico */}
-        <button onClick={limparHistorico}>Limpar Histórico</button>
+        
       </div>
       <div className="display">
         <div className="expressao-atual">{expressaoAtual}</div>
