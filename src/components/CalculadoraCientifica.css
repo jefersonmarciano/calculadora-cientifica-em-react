@@ -4,15 +4,15 @@
     padding: 10px;
     background-color: #34495e;
     border-radius: 10px;
-  }
-  
-  .linha {
+}
+
+.linha {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 5px;
-  }
-  
-  .teclado-cientifico button {
+}
+
+.teclado-cientifico button {
     padding: 10px;
     font-size: 16px;
     border: none;
@@ -21,52 +21,94 @@
     color: #ecf0f1;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
-  }
-  
-  .teclado-cientifico button:hover {
+}
+
+.teclado-cientifico button:hover {
     background-color: #2980b9;
-  }
-  
-  .teclado-cientifico button:active {
+}
+
+.teclado-cientifico button:active {
     transform: scale(0.95);
-  }
-  
-  .teclado-cientifico .funcao {
+}
+
+.teclado-cientifico .funcao {
     background-color: #f39c12;
-  }
-  
-  .teclado-cientifico .funcao:hover {
+}
+
+.teclado-cientifico .funcao:hover {
     background-color: #d35400;
-  }
-  
-  .teclado-cientifico .modo-cientifico,
-  .teclado-cientifico .alternar-unidade {
+}
+
+.teclado-cientifico .modo-cientifico,
+.teclado-cientifico .alternar-unidade {
     background-color: #27ae60;
-  }
-  
-  .teclado-cientifico .modo-cientifico:hover,
-  .teclado-cientifico .alternar-unidade:hover {
+}
+
+.teclado-cientifico .modo-cientifico:hover,
+.teclado-cientifico .alternar-unidade:hover {
     background-color: #2ecc71;
-  }
-  
-  .teclado-cientifico .limpar,
-  .teclado-cientifico .apagar {
+}
+
+.teclado-cientifico .limpar,
+.teclado-cientifico .apagar {
     background-color: #c0392b;
-  }
-  
-  .teclado-cientifico .limpar:hover,
-  .teclado-cientifico .apagar:hover {
+}
+
+.teclado-cientifico .limpar:hover,
+.teclado-cientifico .apagar:hover {
     background-color: #e74c3c;
-  }
-  
-  .teclado-cientifico .igual {
+}
+
+.teclado-cientifico .igual {
     background-color: #3498db;
-  }
-  
-  .teclado-cientifico .igual:hover {
+}
+
+.teclado-cientifico .igual:hover {
     background-color: #2980b9;
-  }
-  
-  .teclado-cientifico .zero {
+}
+
+.teclado-cientifico .zero {
     grid-column: span 2;
-  }
+}
+
+/* Media query para telas entre 361px e 540px */
+@media screen and (min-width: 361px) and (max-width: 540px) {
+    .teclado-cientifico {
+        padding: 8px;
+    }
+
+    .linha {
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 8px;
+    }
+
+    .teclado-cientifico button {
+        padding: 9px;
+        font-size: 15px;
+    }
+}
+
+/* Media query para telas de 360px ou menos */
+@media screen and (max-width: 360px) {
+    .teclado-cientifico {
+        padding: 5px;
+    }
+
+    .linha {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .teclado-cientifico button {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .teclado-cientifico .modo-cientifico,
+    .teclado-cientifico .alternar-unidade {
+        grid-column: span 2;
+    }
+
+    .teclado-cientifico .zero {
+        grid-column: span 1;
+    }
+}

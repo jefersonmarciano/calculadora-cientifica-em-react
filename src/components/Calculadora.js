@@ -11,6 +11,7 @@ function Calculadora() {
   const [historico, setHistorico] = useState([]);
   const [modoRadianos, setModoRadianos] = useState(true);
   const [modoCientifico, setModoCientifico] = useState(false);
+  const [expressaoAtual, setExpressaoAtual] = useState('');
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -38,15 +39,18 @@ function Calculadora() {
   const inputDigito = (digito) => {
     if (esperandoSegundoNumero) {
       setDisplay(digito);
+      setExpressaoAtual(expressaoAtual + digito);
       setEsperandoSegundoNumero(false);
     } else {
       setDisplay(display === '0' ? digito : display + digito);
+      setExpressaoAtual(expressaoAtual + digito);
     }
   };
 
   const inputDecimal = () => {
     if (!display.includes('.')) {
       setDisplay(display + '.');
+      setExpressaoAtual(expressaoAtual + '.');
     }
   };
 
@@ -55,6 +59,7 @@ function Calculadora() {
     setPrimeiroNumero(null);
     setOperador(null);
     setEsperandoSegundoNumero(false);
+    setExpressaoAtual('');
   };
 
   const apagarUltimoDigito = () => {
@@ -66,12 +71,14 @@ function Calculadora() {
       setPrimeiroNumero(parseFloat(display));
       setOperador(op);
       setEsperandoSegundoNumero(true);
+      setExpressaoAtual(expressaoAtual + ' ' + op + ' ');
     } else if (operador) {
       const resultado = calcular(primeiroNumero, parseFloat(display), operador);
       setDisplay(String(resultado));
       setPrimeiroNumero(resultado);
       setOperador(op);
       setEsperandoSegundoNumero(true);
+      setExpressaoAtual(expressaoAtual + ' ' + op + ' ');
     }
   };
 
@@ -89,12 +96,13 @@ function Calculadora() {
     if (operador && primeiroNumero !== null) {
       const segundoNumero = parseFloat(display);
       const resultado = calcular(primeiroNumero, segundoNumero, operador);
-      const novoCalculo = `${primeiroNumero} ${operador} ${segundoNumero} = ${resultado}`;
+      const novoCalculo = `${expressaoAtual} = ${resultado}`;
       setHistorico([...historico, novoCalculo]);
       setDisplay(String(resultado));
       setPrimeiroNumero(null);
       setOperador(null);
       setEsperandoSegundoNumero(true);
+      setExpressaoAtual('');
     }
   };
 
@@ -113,40 +121,48 @@ function Calculadora() {
     switch (operacao) {
       case 'sin':
         resultado = Math.sin(modoRadianos ? valorAtual : valorAtual * Math.PI / 180);
+        setExpressaoAtual(expressaoAtual + `sin(${valorAtual}${modoRadianos ? '' : '°'})`);
         break;
       case 'cos':
         resultado = Math.cos(modoRadianos ? valorAtual : valorAtual * Math.PI / 180);
+        setExpressaoAtual(expressaoAtual + `cos(${valorAtual}${modoRadianos ? '' : '°'})`);
         break;
       case 'tan':
         resultado = Math.tan(modoRadianos ? valorAtual : valorAtual * Math.PI / 180);
+        setExpressaoAtual(expressaoAtual + `tan(${valorAtual}${modoRadianos ? '' : '°'})`);
         break;
       case 'log':
         resultado = Math.log10(valorAtual);
+        setExpressaoAtual(expressaoAtual + `log(${valorAtual})`);
         break;
       case 'ln':
         resultado = Math.log(valorAtual);
+        setExpressaoAtual(expressaoAtual + `ln(${valorAtual})`);
         break;
       case 'sqrt':
         resultado = Math.sqrt(valorAtual);
+        setExpressaoAtual(expressaoAtual + `√(${valorAtual})`);
         break;
       case 'x^2':
         resultado = Math.pow(valorAtual, 2);
+        setExpressaoAtual(expressaoAtual + `(${valorAtual})²`);
         break;
       case 'x^3':
         resultado = Math.pow(valorAtual, 3);
+        setExpressaoAtual(expressaoAtual + `(${valorAtual})³`);
         break;
       case '1/x':
         resultado = 1 / valorAtual;
+        setExpressaoAtual(expressaoAtual + `1/(${valorAtual})`);
         break;
       case 'pi':
         resultado = Math.PI;
+        setExpressaoAtual(expressaoAtual + 'π');
         break;
       default:
         resultado = valorAtual;
     }
 
-    const novoCalculo = `${operacao}(${valorAtual}) = ${resultado}`;
-    setHistorico([...historico, novoCalculo]);
     setDisplay(String(resultado));
     setEsperandoSegundoNumero(true);
   };
@@ -154,9 +170,17 @@ function Calculadora() {
   return (
     <div className={`calculadora ${modoCientifico ? 'cientifica' : ''}`}>
       <div className="historico">
-        {historico.map((calculo, index) => (
-          <div key={index} className="calculo-historico">{calculo}</div>
-        ))}
+        {historico.length === 0 ? (
+          <div className="historico-placeholder">
+            Histórico de Cálculos
+            <br />
+            <span className="historico-subtext">Seus cálculos aparecerão aqui</span>
+          </div>
+        ) : (
+          historico.map((calculo, index) => (
+            <div key={index} className="calculo-historico">{calculo}</div>
+          ))
+        )}
       </div>
       <div className="display">{display}</div>
       {modoCientifico ? (
