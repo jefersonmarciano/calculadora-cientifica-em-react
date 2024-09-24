@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Calculadora.css';
 import CalculadoraNormal from './CalculadoraNormal';
 import CalculadoraCientifica from './CalculadoraCientifica';
+import { evaluate } from 'mathjs'; // Adicione esta importação no topo do arquivo
 
 function Calculadora() {
   const [display, setDisplay] = useState('0');
@@ -67,7 +68,7 @@ function Calculadora() {
   };
 
   const executarOperacao = (op) => {
-    if (primeiroNumero === null) {
+    if (primeiroNumero === null && display !== '(') {
       setPrimeiroNumero(parseFloat(display));
       setOperador(op);
       setEsperandoSegundoNumero(true);
@@ -93,16 +94,20 @@ function Calculadora() {
   };
 
   const calcularResultado = () => {
-    if (operador && primeiroNumero !== null) {
-      const segundoNumero = parseFloat(display);
-      const resultado = calcular(primeiroNumero, segundoNumero, operador);
-      const novoCalculo = `${expressaoAtual} = ${resultado}`;
-      setHistorico([...historico, novoCalculo]);
-      setDisplay(String(resultado));
-      setPrimeiroNumero(null);
-      setOperador(null);
-      setEsperandoSegundoNumero(true);
-      setExpressaoAtual('');
+    if (expressaoAtual) {
+      try {
+        const resultado = evaluate(expressaoAtual);
+        const novoCalculo = `${expressaoAtual} = ${resultado}`;
+        setHistorico([...historico, novoCalculo]);
+        setDisplay(String(resultado));
+        setPrimeiroNumero(null);
+        setOperador(null);
+        setEsperandoSegundoNumero(true);
+        setExpressaoAtual('');
+      } catch (error) {
+        setDisplay('Erro');
+        setExpressaoAtual('');
+      }
     }
   };
 
@@ -167,6 +172,11 @@ function Calculadora() {
     setEsperandoSegundoNumero(true);
   };
 
+  const adicionarParenteses = (parentese) => {
+    setDisplay(display === '0' ? parentese : display + parentese);
+    setExpressaoAtual(expressaoAtual + parentese);
+  };
+
   return (
     <div className={`calculadora ${modoCientifico ? 'cientifica' : ''}`}>
       <div className="historico">
@@ -195,6 +205,7 @@ function Calculadora() {
           alternarUnidade={alternarUnidade}
           executarOperacaoCientifica={executarOperacaoCientifica}
           modoRadianos={modoRadianos}
+          adicionarParenteses={adicionarParenteses} // Atualize aqui
         />
       ) : (
         <CalculadoraNormal
@@ -205,6 +216,7 @@ function Calculadora() {
           limpar={limpar}
           apagarUltimoDigito={apagarUltimoDigito}
           alternarModoCientifico={alternarModoCientifico}
+          adicionarParenteses={adicionarParenteses} // Atualize aqui
         />
       )}
     </div>

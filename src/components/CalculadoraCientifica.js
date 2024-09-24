@@ -1,7 +1,7 @@
 import React from 'react';
 import './CalculadoraCientifica.css';
 
-function CalculadoraCientifica({
+const CalculadoraCientifica = ({ 
   inputDigito,
   inputDecimal,
   adicionarParenteses,
@@ -13,7 +13,7 @@ function CalculadoraCientifica({
   alternarUnidade,
   executarOperacaoCientifica,
   modoRadianos
-}) {
+}) => {
   return (
     <div className="teclado-cientifico">
       <div className="linha">
@@ -72,6 +72,6 @@ function CalculadoraCientifica({
       </div>
     </div>
   );
-}
+};
 
 export default CalculadoraCientifica;
