@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# Calculadora React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Esta é uma calculadora avançada desenvolvida em React, oferecendo funcionalidades de uma calculadora padrão e científica.
 
-## Available Scripts
+## Características
 
-In the project directory, you can run:
+### Modos de Operação
+- Modo Normal: Operações básicas de matemática
+- Modo Científico: Funções matemáticas avançadas
 
-### `npm start`
+### Funcionalidades Gerais
+- Entrada via teclado e interface gráfica
+- Histórico de cálculos
+- Limpeza de display após cada operação concluída
+- Suporte a operações encadeadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Operações Básicas
+- Adição (+)
+- Subtração (-)
+- Multiplicação (*)
+- Divisão (/)
+- Cálculo de porcentagem (%)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Funções Científicas
+- Trigonometria: seno (sin), cosseno (cos), tangente (tan)
+- Trigonometria inversa: arco seno (sin⁻¹), arco cosseno (cos⁻¹), arco tangente (tan⁻¹)
+- Logaritmos: log (base 10), ln (logaritmo natural)
+- Potências: x² (quadrado), x³ (cubo), 10ˣ, eˣ
+- Raiz quadrada (√)
+- Inverso (1/x)
+- Constante Pi (π)
 
-### `npm test`
+### Modos de Ângulo
+- Alternância entre radianos e graus
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Interface
+- Display para visualização de entrada e resultado
+- Teclado numérico e de operações
+- Área de histórico de cálculos
 
-### `npm run build`
+## Como Usar
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Modo Normal**: 
+   - Use os botões numéricos e de operações básicas para realizar cálculos simples.
+   - Pressione '=' ou 'Enter' para obter o resultado.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Modo Científico**:
+   - Clique no botão 'Científica' para acessar funções avançadas.
+   - Use as funções trigonométricas, logarítmicas e outras funções especiais conforme necessário.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Entrada via Teclado**:
+   - Use o teclado numérico para digitar números.
+   - Use as teclas '+', '-', '*', '/' para operações básicas.
+   - Pressione 'Enter' para calcular o resultado.
+   - Use 'Backspace' para apagar o último dígito.
+   - Pressione 'Esc' para limpar a calculadora.
 
-### `npm run eject`
+4. **Histórico**:
+   - Visualize os cálculos anteriores na área de histórico acima do display.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+5. **Alternar Unidade de Ângulo**:
+   - No modo científico, use o botão 'Rad/Deg' para alternar entre radianos e graus.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Tecnologias Utilizadas
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- React
+- JavaScript (ES6+)
+- CSS para estilização
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Instalação e Execução
 
-## Learn More
+1. Clone o repositório
+2. Instale as dependências com `npm install`
+3. Execute o projeto com `npm start`
+4. Acesse a calculadora em `http://localhost:3000`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Aproveite sua nova calculadora avançada!
