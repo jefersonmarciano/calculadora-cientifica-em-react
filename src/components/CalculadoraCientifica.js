@@ -12,13 +12,15 @@ const CalculadoraCientifica = ({
   alternarModoCientifico,
   alternarUnidade,
   executarOperacaoCientifica,
-  modoRadianos
+  modoRadianos,
+  limparHistorico
 }) => {
   return (
     <div className="teclado-cientifico">
       <div className="linha">
         <button onClick={alternarModoCientifico} className="modo-cientifico">Normal</button>
         <button onClick={alternarUnidade} className="alternar-unidade">{modoRadianos ? 'Rad' : 'Deg'}</button>
+        <button onClick={limparHistorico} className="limpar-historico">Limpar Histórico</button>
         <button onClick={limpar} className="limpar">C</button>
         <button onClick={apagarUltimoDigito} className="apagar">←</button>
       </div>

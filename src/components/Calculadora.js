@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Calculadora.css';
 import CalculadoraNormal from './CalculadoraNormal';
 import CalculadoraCientifica from './CalculadoraCientifica';
-import { evaluate } from 'mathjs'; // Adicione esta importação no topo do arquivo
+import { evaluate, sqrt } from 'mathjs'; // Adicione sqrt à importação
 
 function Calculadora() {
   const [display, setDisplay] = useState('0');
@@ -96,7 +96,8 @@ function Calculadora() {
   const calcularResultado = () => {
     if (expressaoAtual) {
       try {
-        const resultado = evaluate(expressaoAtual);
+        const expressaoParaCalcular = expressaoAtual.replace(/√/g, 'sqrt');
+        const resultado = evaluate(expressaoParaCalcular);
         const novoCalculo = `${expressaoAtual} = ${resultado}`;
         setHistorico([...historico, novoCalculo]);
         setDisplay(String(resultado));
@@ -120,56 +121,59 @@ function Calculadora() {
   };
 
   const executarOperacaoCientifica = (operacao) => {
-    const valorAtual = parseFloat(display);
+    if (display === '0' || display === '') return;
+
     let resultado;
+    let expressao;
 
     switch (operacao) {
       case 'sin':
-        resultado = Math.sin(modoRadianos ? valorAtual : valorAtual * Math.PI / 180);
-        setExpressaoAtual(expressaoAtual + `sin(${valorAtual}${modoRadianos ? '' : '°'})`);
+        resultado = Math.sin(modoRadianos ? parseFloat(display) : parseFloat(display) * Math.PI / 180);
+        expressao = `sin(${display}${modoRadianos ? '' : '°'})`;
         break;
       case 'cos':
-        resultado = Math.cos(modoRadianos ? valorAtual : valorAtual * Math.PI / 180);
-        setExpressaoAtual(expressaoAtual + `cos(${valorAtual}${modoRadianos ? '' : '°'})`);
+        resultado = Math.cos(modoRadianos ? parseFloat(display) : parseFloat(display) * Math.PI / 180);
+        expressao = `cos(${display}${modoRadianos ? '' : '°'})`;
         break;
       case 'tan':
-        resultado = Math.tan(modoRadianos ? valorAtual : valorAtual * Math.PI / 180);
-        setExpressaoAtual(expressaoAtual + `tan(${valorAtual}${modoRadianos ? '' : '°'})`);
+        resultado = Math.tan(modoRadianos ? parseFloat(display) : parseFloat(display) * Math.PI / 180);
+        expressao = `tan(${display}${modoRadianos ? '' : '°'})`;
         break;
       case 'log':
-        resultado = Math.log10(valorAtual);
-        setExpressaoAtual(expressaoAtual + `log(${valorAtual})`);
+        resultado = Math.log10(parseFloat(display));
+        expressao = `log(${display})`;
         break;
       case 'ln':
-        resultado = Math.log(valorAtual);
-        setExpressaoAtual(expressaoAtual + `ln(${valorAtual})`);
+        resultado = Math.log(parseFloat(display));
+        expressao = `ln(${display})`;
         break;
       case 'sqrt':
-        resultado = Math.sqrt(valorAtual);
-        setExpressaoAtual(expressaoAtual + `√(${valorAtual})`);
+        resultado = sqrt(parseFloat(display));
+        expressao = `√(${display})`;
         break;
       case 'x^2':
-        resultado = Math.pow(valorAtual, 2);
-        setExpressaoAtual(expressaoAtual + `(${valorAtual})²`);
+        resultado = Math.pow(parseFloat(display), 2);
+        expressao = `(${display})²`;
         break;
       case 'x^3':
-        resultado = Math.pow(valorAtual, 3);
-        setExpressaoAtual(expressaoAtual + `(${valorAtual})³`);
+        resultado = Math.pow(parseFloat(display), 3);
+        expressao = `(${display})³`;
         break;
       case '1/x':
-        resultado = 1 / valorAtual;
-        setExpressaoAtual(expressaoAtual + `1/(${valorAtual})`);
+        resultado = 1 / parseFloat(display);
+        expressao = `1/(${display})`;
         break;
       case 'pi':
         resultado = Math.PI;
-        setExpressaoAtual(expressaoAtual + 'π');
+        expressao = 'π';
         break;
       default:
-        resultado = valorAtual;
+        return;
     }
 
     setDisplay(String(resultado));
-    setEsperandoSegundoNumero(true);
+    setExpressaoAtual(expressaoAtual + expressao);
+    setHistorico([...historico, `${expressao} = ${resultado}`]);
   };
 
   const adicionarParenteses = (parentese) => {
@@ -177,22 +181,27 @@ function Calculadora() {
     setExpressaoAtual(expressaoAtual + parentese);
   };
 
+  // Adicione esta nova função
+  const limparHistorico = () => {
+    setHistorico([]);
+  };
+
   return (
     <div className={`calculadora ${modoCientifico ? 'cientifica' : ''}`}>
       <div className="historico">
-        {historico.length === 0 ? (
-          <div className="historico-placeholder">
-            Histórico de Cálculos
-            <br />
-            <span className="historico-subtext">Seus cálculos aparecerão aqui</span>
-          </div>
-        ) : (
-          historico.map((calculo, index) => (
-            <div key={index} className="calculo-historico">{calculo}</div>
-          ))
-        )}
+        <h3>Histórico</h3>
+        <ul>
+          {historico.map((calculo, index) => (
+            <li key={index}>{calculo}</li>
+          ))}
+        </ul>
+        {/* Adicione este botão para limpar o histórico */}
+        <button onClick={limparHistorico}>Limpar Histórico</button>
       </div>
-      <div className="display">{display}</div>
+      <div className="display">
+        <div className="expressao-atual">{expressaoAtual}</div>
+        <div className="resultado">{display}</div>
+      </div>
       {modoCientifico ? (
         <CalculadoraCientifica
           inputDigito={inputDigito}
@@ -205,7 +214,8 @@ function Calculadora() {
           alternarUnidade={alternarUnidade}
           executarOperacaoCientifica={executarOperacaoCientifica}
           modoRadianos={modoRadianos}
-          adicionarParenteses={adicionarParenteses} // Atualize aqui
+          adicionarParenteses={adicionarParenteses}
+          limparHistorico={limparHistorico}
         />
       ) : (
         <CalculadoraNormal
@@ -216,7 +226,8 @@ function Calculadora() {
           limpar={limpar}
           apagarUltimoDigito={apagarUltimoDigito}
           alternarModoCientifico={alternarModoCientifico}
-          adicionarParenteses={adicionarParenteses} // Atualize aqui
+          adicionarParenteses={adicionarParenteses}
+          limparHistorico={limparHistorico}
         />
       )}
     </div>

@@ -8,7 +8,8 @@ function CalculadoraNormal({
   calcularResultado,
   limpar,
   apagarUltimoDigito,
-  alternarModoCientifico
+  alternarModoCientifico,
+  limparHistorico
 }) {
   return (
     <div className="teclado">
@@ -36,6 +37,7 @@ function CalculadoraNormal({
       <button onClick={calcularResultado} className="funcao">=</button>
       <button onClick={limpar} className="limpar">C</button>
       <button onClick={apagarUltimoDigito} className="apagar">←</button>
+      <button onClick={limparHistorico}>Limpar Histórico</button>
     </div>
   );
 }
